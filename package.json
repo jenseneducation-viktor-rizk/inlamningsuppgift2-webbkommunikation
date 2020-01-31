@@ -1,0 +1,29 @@
+{
+  "name": "inlamningsuppgift-webbkommunikation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "nodemon": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jenseneducation-viktor-rizk/inlamningsuppgift-webbkommunikation.git"
+  },
+  "keywords": [],
+  "author": "Viktor Rizk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jenseneducation-viktor-rizk/inlamningsuppgift-webbkommunikation/issues"
+  },
+  "homepage": "https://github.com/jenseneducation-viktor-rizk/inlamningsuppgift-webbkommunikation#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "lowdb": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "products": [
+    {
+      "name": "Apple",
+      "price": "12.95",
+      "image": "http://placeimg.com/640/480/any?t=1580292677635",
+      "id": "1"
+    },
+    {
+      "name": "Banana",
+      "price": "9.95",
+      "image": "http://placeimg.com/640/480/any?t=1580292695735",
+      "id": "2"
+    },
+    {
+      "name": "Pear",
+      "price": "15.95",
+      "image": "http://placeimg.com/640/480/any?t=1580292710156",
+      "id": "3"
+    },
+    {
+      "name": "Pineapple",
+      "price": "19.95",
+      "image": "http://placeimg.com/640/480/any?t=1580292722197",
+      "id": "4"
+    },
+    {
+      "name": "Papaya",
+      "price": "25.95",
+      "image": "http://placeimg.com/640/480/any?t=1580292733519",
+      "id": "5"
+    }
+  ],
+  "cart": []
+}
