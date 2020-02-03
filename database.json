@@ -31,5 +31,12 @@
       "id": "5"
     }
   ],
-  "cart": []
+  "cart": [
+    {
+      "name": "Apple",
+      "price": "12.95",
+      "image": "http://placeimg.com/640/480/any?t=1580292677635",
+      "id": "1"
+    }
+  ]
 }
