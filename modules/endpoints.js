@@ -29,7 +29,7 @@ app.post("/cart/add/:id", async (req, res) => {
       const addedProd = await database.addToCart(prod);
       let message = {
         success: true,
-        message: addedProd[addedProd.length - 1].name + " added to cart.",
+        message: addedProd[addedProd.length - 1].name + " Added To Cart.",
         data: addedProd[addedProd.length - 1]
       };
 
@@ -38,10 +38,10 @@ app.post("/cart/add/:id", async (req, res) => {
       // om produkten finns i produktlistan och finns i varukorgen
       let message = {
         success: false,
-        message: specCart.name + " is already in the cart.",
+        message: specCart.name + " Is Already Added",
         data: specCart
       };
-      res.status(404).send(message);
+      res.send(message);
     }
   } else {
     // om produkten inte finns i produktlistan
@@ -57,7 +57,7 @@ app.delete("/cart/remove/:id", async (req, res) => {
     // om produkten finns i varukorgen
     let message = {
       success: true,
-      message: removedProd[0].name + " removed from cart",
+      message: removedProd[0].name + " Removed From Cart",
       data: removedProd[0]
     };
     res.send(message);
