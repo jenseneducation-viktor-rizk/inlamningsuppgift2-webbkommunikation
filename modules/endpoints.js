@@ -29,7 +29,7 @@ app.post("/cart/add/:id", async (req, res) => {
       const addedProd = await database.addToCart(prod);
       let message = {
         success: true,
-        message: addedProd[addedProd.length - 1].name + " Added To Cart.",
+        message: addedProd[addedProd.length - 1].name + " Added To Cart",
         data: addedProd[addedProd.length - 1]
       };
 
@@ -66,7 +66,7 @@ app.delete("/cart/remove/:id", async (req, res) => {
       success: false,
       message: "There is nothing to remove."
     };
-    res.status(404).send(message);
+    res.send(message);
   }
 });
 

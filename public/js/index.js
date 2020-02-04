@@ -22,30 +22,50 @@ const addToCart = async i => {
       return response.json();
     })
     .then(data => {
-      console.log(data);
-
-      alreadyAdded(i, data);
+      buttonMsg(i, data);
     })
     .catch(error => {
       console.error(error);
     });
 };
 
-// produktknapp för att lägga till i varukorgen
-const addToCartButton = (i, productContainer) => {
-  let buttonName = document.createTextNode("Add To Cart");
-  const cartButton = document.createElement("button");
-  const buttonId = 1 + i;
-  cartButton.className = "button-cart";
-  cartButton.id = "button-" + buttonId;
-  cartButton.appendChild(buttonName);
-  productContainer.appendChild(cartButton);
-  cartButton.addEventListener("click", () => {
-    addToCart(buttonId);
-  });
+const checkIfInCart = async (productId, i) => {
+  await fetch("/cart", {
+    method: "GET"
+  })
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {});
 };
 
-const alreadyAdded = (i, data) => {
+const addCartSymbol = async (productId, i, productContainer) => {
+  const test = await checkIfInCart(productId, i);
+  console.log(test);
+  const cartSymbol = document.createElement("p");
+  let prodName = document.createTextNode("hejhej");
+  cartSymbol.appendChild(prodName);
+  productContainer.appendChild(cartSymbol);
+  // if (condition) {
+
+  // }
+};
+
+// produktknapp för att lägga till i varukorgen
+const addToCartButton = (productId, productContainer) => {
+  let buttonName = document.createTextNode("Add To Cart");
+  const cartButton = document.createElement("button");
+  cartButton.className = "button-cart";
+  cartButton.id = "button-" + productId;
+  cartButton.appendChild(buttonName);
+  productContainer.appendChild(cartButton);
+
+  cartButton.addEventListener("click", () => {
+    addToCart(productId);
+  });
+};
+// meddelande om produkt lagts till eller om den redan fanns i varukorgen
+const buttonMsg = (i, data) => {
   document.querySelector(`#button-${i}`).innerHTML = data.message;
 };
 
@@ -74,10 +94,11 @@ const appendProducts = async products => {
   for (let i = 0; i < products.length; i++) {
     const productContainer = document.createElement("div");
     productContainer.className = "product";
+
     productName(products, i, productContainer);
     productImg(products, i, productContainer);
     productPrice(products, i, productContainer);
-    addToCartButton(i, productContainer);
+    addToCartButton(products[i].id, productContainer);
     document.querySelector(".product-container").appendChild(productContainer);
   }
 };
