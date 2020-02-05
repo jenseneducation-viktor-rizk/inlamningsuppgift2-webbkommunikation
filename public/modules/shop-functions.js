@@ -1,4 +1,4 @@
-import { addToCart } from "../js/shop.js";
+import { addToCart, checkIfInCart } from "../js/shop.js";
 
 // produktknapp för att lägga till i varukorgen
 const addToCartButton = (productId, productContainer) => {
@@ -16,6 +16,9 @@ const addToCartButton = (productId, productContainer) => {
 // meddelande om produkt lagts till eller om den redan fanns i varukorgen
 export const buttonMsg = (i, data) => {
   document.querySelector(`#button-${i}`).innerHTML = data.message;
+  setTimeout(function() {
+    document.querySelector(`#button-${i}`).innerHTML = "In Cart";
+  }, 1500);
 };
 
 // hämtar produktnamn och lägger till i HTML
@@ -52,30 +55,10 @@ export const appendProducts = products => {
   }
 };
 
-//
+// om produkten redan är i varukorgen står det på "add"-knappen
 const isInCartText = async productId => {
   const cartId = await checkIfInCart(productId);
-
   if (cartId) {
     document.querySelector(`#button-${cartId}`).innerHTML = "In Cart";
   }
-};
-// hämtar varukorgen och kolla om en specifik produkt finns med hjälp av id
-const checkIfInCart = async i => {
-  let status;
-  await fetch("/cart", {
-    method: "GET"
-  })
-    .then(response => {
-      return response.json();
-    })
-    .then(data => {
-      if (data[i]) {
-        status = data[i].id;
-      }
-    })
-    .catch(error => {
-      console.error(error);
-    });
-  return status;
 };

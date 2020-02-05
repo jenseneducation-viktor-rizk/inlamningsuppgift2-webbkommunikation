@@ -30,5 +30,24 @@ export const addToCart = async i => {
       console.error(error);
     });
 };
+// hämtar varukorgen och kolla om en specifik produkt finns med hjälp av id
+export const checkIfInCart = async i => {
+  let status;
+  await fetch("/cart", {
+    method: "GET"
+  })
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      if (data[i]) {
+        status = data[i].id;
+      }
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  return status;
+};
 
 fetchProducts();

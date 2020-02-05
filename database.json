@@ -31,12 +31,5 @@
       "id": "4"
     }
   ],
-  "cart": [
-    {
-      "name": "Banana",
-      "price": "9.95",
-      "image": "http://placeimg.com/640/480/any?t=1580292695735",
-      "id": "1"
-    }
-  ]
+  "cart": []
 }

@@ -31,14 +31,13 @@ export const fetchRemoveFromCart = async i => {
       console.error(error);
     });
 };
-
+// tar bort produkten från HTML
 const removeProdFromHTML = i => {
   let item = document.getElementById("product-" + i);
 
   setTimeout(function() {
     item.parentNode.removeChild(item);
-  }, 1000);
-  // item.parentNode.removeChild(item);
+  }, 1500);
 };
 
 fetchCart();
