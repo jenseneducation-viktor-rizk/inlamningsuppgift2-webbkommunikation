@@ -29,28 +29,6 @@ const addToCart = async i => {
     });
 };
 
-const checkIfInCart = async (productId, i) => {
-  await fetch("/cart", {
-    method: "GET"
-  })
-    .then(response => {
-      return response.json();
-    })
-    .then(data => {});
-};
-
-const addCartSymbol = async (productId, i, productContainer) => {
-  const test = await checkIfInCart(productId, i);
-  console.log(test);
-  const cartSymbol = document.createElement("p");
-  let prodName = document.createTextNode("hejhej");
-  cartSymbol.appendChild(prodName);
-  productContainer.appendChild(cartSymbol);
-  // if (condition) {
-
-  // }
-};
-
 // produktknapp för att lägga till i varukorgen
 const addToCartButton = (productId, productContainer) => {
   let buttonName = document.createTextNode("Add To Cart");
@@ -96,11 +74,49 @@ const appendProducts = async products => {
     productContainer.className = "product";
 
     productName(products, i, productContainer);
+
+    await addToCartLoop(products[i].id, products.length, productContainer);
+
     productImg(products, i, productContainer);
     productPrice(products, i, productContainer);
     addToCartButton(products[i].id, productContainer);
     document.querySelector(".product-container").appendChild(productContainer);
   }
+};
+//
+const addToCartLoop = async (productId, length, productContainer) => {
+  for (let i = 0; i < length; i++)
+    await addCartSymbol(productId, i, productContainer);
+};
+//
+const addCartSymbol = async (productId, i, productContainer) => {
+  const cartId = await checkIfInCart(i);
+
+  if (cartId == productId) {
+    const cartSymbol = document.createElement("p");
+    let prodName = document.createTextNode("In Cart");
+    cartSymbol.appendChild(prodName);
+    productContainer.appendChild(cartSymbol);
+  }
+};
+// hämtar varukorgen och kolla om en specifik produkt finns med hjälp av id
+const checkIfInCart = async i => {
+  let status;
+  await fetch("/cart", {
+    method: "GET"
+  })
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      if (data[i]) {
+        status = data[i].id;
+      }
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  return status;
 };
 
 fetchProducts();
