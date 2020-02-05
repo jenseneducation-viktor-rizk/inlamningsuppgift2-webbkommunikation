@@ -1,33 +1,4 @@
-// hämtar produkter från databasen
-const fetchProducts = async () => {
-  await fetch("/products", {
-    method: "GET"
-  })
-    .then(response => {
-      return response.json();
-    })
-    .then(products => {
-      appendProducts(products);
-    })
-    .catch(error => {
-      console.error(error);
-    });
-};
-// lägger till produkt i varukorgen
-const addToCart = async i => {
-  await fetch("/cart/add/" + i, {
-    method: "POST"
-  })
-    .then(response => {
-      return response.json();
-    })
-    .then(data => {
-      buttonMsg(i, data);
-    })
-    .catch(error => {
-      console.error(error);
-    });
-};
+import { addToCart } from "../js/shop.js";
 
 // produktknapp för att lägga till i varukorgen
 const addToCartButton = (productId, productContainer) => {
@@ -43,7 +14,7 @@ const addToCartButton = (productId, productContainer) => {
   });
 };
 // meddelande om produkt lagts till eller om den redan fanns i varukorgen
-const buttonMsg = (i, data) => {
+export const buttonMsg = (i, data) => {
   document.querySelector(`#button-${i}`).innerHTML = data.message;
 };
 
@@ -68,16 +39,12 @@ const productImg = async (products, i, productContainer) => {
   productContainer.appendChild(imgContainer);
 };
 // lägger till produkterna i HTML
-const appendProducts = async products => {
+export const appendProducts = products => {
   for (let i = 0; i < products.length; i++) {
     const productContainer = document.createElement("div");
     productContainer.className = "product";
-
     productName(products, i, productContainer);
-
-    for (let x = 0; x < products.length; x++) {
-      await addCartSymbol(products[i].id, x, productContainer);
-    }
+    isInCartText(i);
     productImg(products, i, productContainer);
     productPrice(products, i, productContainer);
     addToCartButton(products[i].id, productContainer);
@@ -86,14 +53,11 @@ const appendProducts = async products => {
 };
 
 //
-const addCartSymbol = async (productId, i, productContainer) => {
-  const cartId = await checkIfInCart(i);
+const isInCartText = async productId => {
+  const cartId = await checkIfInCart(productId);
 
-  if (cartId == productId) {
-    const cartSymbol = document.createElement("p");
-    let prodName = document.createTextNode("In Cart");
-    cartSymbol.appendChild(prodName);
-    productContainer.appendChild(cartSymbol);
+  if (cartId) {
+    document.querySelector(`#button-${cartId}`).innerHTML = "In Cart";
   }
 };
 // hämtar varukorgen och kolla om en specifik produkt finns med hjälp av id
@@ -115,5 +79,3 @@ const checkIfInCart = async i => {
     });
   return status;
 };
-
-fetchProducts();

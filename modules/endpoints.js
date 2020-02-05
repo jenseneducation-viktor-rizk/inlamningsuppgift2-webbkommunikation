@@ -38,7 +38,7 @@ app.post("/cart/add/:id", async (req, res) => {
       // om produkten finns i produktlistan och finns i varukorgen
       let message = {
         success: false,
-        message: specCart.name + " Is Already Added",
+        message: specCart.name + " Is Already In Cart",
         data: specCart
       };
       res.send(message);
