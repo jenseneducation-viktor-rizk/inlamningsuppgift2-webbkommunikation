@@ -75,19 +75,16 @@ const appendProducts = async products => {
 
     productName(products, i, productContainer);
 
-    await addToCartLoop(products[i].id, products.length, productContainer);
-
+    for (let x = 0; x < products.length; x++) {
+      await addCartSymbol(products[i].id, x, productContainer);
+    }
     productImg(products, i, productContainer);
     productPrice(products, i, productContainer);
     addToCartButton(products[i].id, productContainer);
     document.querySelector(".product-container").appendChild(productContainer);
   }
 };
-//
-const addToCartLoop = async (productId, length, productContainer) => {
-  for (let i = 0; i < length; i++)
-    await addCartSymbol(productId, i, productContainer);
-};
+
 //
 const addCartSymbol = async (productId, i, productContainer) => {
   const cartId = await checkIfInCart(i);
